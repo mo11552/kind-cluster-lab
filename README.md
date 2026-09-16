@@ -81,3 +81,28 @@ kubectl delete -f service.yaml
 kubectl delete -f deployment.yaml
 kind delete cluster --name kind-lab
 ```
+
+
+## Kubernetes API Resources Lab
+
+This lab explores how Kubernetes resources are defined, validated, and managed through the API server.
+
+### Concepts Practiced
+
+- Kubernetes resource structure: `apiVersion`, `kind`, `metadata`, and `spec`
+- Discovering resources with `kubectl api-resources`
+- Exploring YAML fields with `kubectl explain`
+- Namespaced versus cluster-wide resources
+- Server-side YAML validation with `--dry-run=server`
+- Creating and inspecting a standalone Nginx Pod
+
+### Commands
+
+```bash
+kubectl api-resources
+kubectl explain pod
+kubectl explain pod.spec.containers
+kubectl apply -f api-resources/pod.yaml
+kubectl get pods
+kubectl describe pod api-demo
+kubectl apply --dry-run=server -f api-resources/pod.yaml
