@@ -128,3 +128,27 @@ Created an Nginx ReplicaSet to practice Kubernetes workload management.
 ```bash
 kubectl apply -f replicasets/nginx-replicaset.yaml
 kubectl get replicasets,pods -n replicaset-practice
+
+
+## Static and Multi-Container Pods Lab
+
+### Concepts practiced
+
+- Inspected Kubernetes control-plane static Pod manifests
+- Created an Nginx static Pod
+- Confirmed that a deleted static Pod is recreated automatically
+- Confirmed that removing its manifest removes the static Pod
+- Created a Pod containing two containers
+- Shared data between containers with an `emptyDir` volume
+
+### Lab files
+
+- `static-pods/nginx-static-pod.yaml`
+- `multi-container/shared-pod.yaml`
+
+### Multi-container Pod commands
+
+```bash
+kubectl apply -f multi-container/shared-pod.yaml
+kubectl get pod shared-pod
+kubectl exec shared-pod -c web-server -- cat /usr/share/nginx/html/index.html
