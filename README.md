@@ -106,3 +106,25 @@ kubectl apply -f api-resources/pod.yaml
 kubectl get pods
 kubectl describe pod api-demo
 kubectl apply --dry-run=server -f api-resources/pod.yaml
+
+
+## Nginx ReplicaSet Lab
+
+Created an Nginx ReplicaSet to practice Kubernetes workload management.
+
+### What I practiced
+
+- Created a dedicated namespace
+- Defined a ReplicaSet using YAML
+- Used matching labels and selectors
+- Maintained three Nginx Pods
+- Tested automatic Pod replacement
+- Scaled the ReplicaSet from three to five Pods
+- Reapplied the YAML to restore the desired state
+- Used namespaces to isolate resources
+
+### Apply the lab
+
+```bash
+kubectl apply -f replicasets/nginx-replicaset.yaml
+kubectl get replicasets,pods -n replicaset-practice
