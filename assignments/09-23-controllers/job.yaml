@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-job
+  namespace: deployments
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: hello
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - echo "Job completed successfully"; date

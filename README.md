@@ -177,3 +177,59 @@ kubectl get pods -l qos-demo -o custom-columns=NAME:.metadata.name,QOS-CLASS:.st
 kubectl label pod burstable-pod environment=training
 kubectl get pods -l environment=training
 ```
+
+---
+
+## Kubernetes Controllers Assignment — 09/23
+
+### ReplicaSet
+
+A ReplicaSet maintains a specified number of identical Pods. The ReplicaSet’s selector must match the labels in the Pod template so it knows which Pods to manage.
+
+Tasks completed:
+
+- Created an `nginx` namespace
+- Created an Nginx ReplicaSet with three replicas
+- Scaled it to four replicas with `kubectl`
+- Updated the manifest to seven replicas and reapplied it
+- Confirmed the Pods were owned by the ReplicaSet
+- Deleted the ReplicaSet and its managed Pods
+
+### Deployment
+
+A Deployment manages ReplicaSets, while each ReplicaSet manages its Pods. When the container image changes, the Deployment creates a new ReplicaSet and gradually replaces the old Pods.
+
+Tasks completed:
+
+- Created an Nginx Deployment with two replicas
+- Confirmed the `Available` and `Progressing` conditions
+- Scaled the Deployment to seven Pods and then down to five
+- Updated Nginx from `1.20.0` to `1.21.0` using `kubectl`
+- Updated Nginx to `1.22.0` through the YAML manifest
+- Viewed the rollout history
+- Rolled back to `1.21.0` and then to `1.20.0`
+- Set `revisionHistoryLimit: 10`
+
+### Rollout commands
+
+- `kubectl rollout status` — checks the progress of a rollout
+- `kubectl rollout history` — displays previous rollout revisions
+- `kubectl rollout undo` — rolls back to an earlier revision
+- `kubectl rollout pause` — pauses an active rollout
+- `kubectl rollout resume` — continues a paused rollout
+- `kubectl rollout restart` — restarts the resource’s Pods
+
+### DaemonSet
+
+A DaemonSet ensures that selected nodes run one copy of a Pod. The node was labeled `workload=monitoring`, and `nodeSelector` restricted the `node-monitor` Pod to that node.
+
+### Job
+
+A Job runs a task until it completes successfully. The `hello-job` BusyBox container printed a completion message and the current date before entering the `Completed` state.
+
+### Assignment files
+
+- `assignments/09-23-controllers/replicaset.yaml`
+- `assignments/09-23-controllers/deployment.yaml`
+- `assignments/09-23-controllers/daemonset.yaml`
+- `assignments/09-23-controllers/job.yaml`
