@@ -129,26 +129,25 @@ Created an Nginx ReplicaSet to practice Kubernetes workload management.
 kubectl apply -f replicasets/nginx-replicaset.yaml
 kubectl get replicasets,pods -n replicaset-practice
 
-
-## Static and Multi-Container Pods Lab
+## Init and Ephemeral Containers Lab
 
 ### Concepts practiced
 
-- Inspected Kubernetes control-plane static Pod manifests
-- Created an Nginx static Pod
-- Confirmed that a deleted static Pod is recreated automatically
-- Confirmed that removing its manifest removes the static Pod
-- Created a Pod containing two containers
-- Shared data between containers with an `emptyDir` volume
+- Created an init container that runs before the main container
+- Used an `emptyDir` volume to pass a generated file to Nginx
+- Confirmed the init container finished with `Completed`
+- Used an ephemeral BusyBox container to troubleshoot a running Pod
+- Accessed Nginx from the ephemeral container through the Pod network
 
-### Lab files
+### Lab file
 
-- `static-pods/nginx-static-pod.yaml`
-- `multi-container/shared-pod.yaml`
+- `init-containers/init-demo.yaml`
 
-### Multi-container Pod commands
+### Commands
 
 ```bash
-kubectl apply -f multi-container/shared-pod.yaml
-kubectl get pod shared-pod
-kubectl exec shared-pod -c web-server -- cat /usr/share/nginx/html/index.html
+kubectl apply -f init-containers/init-demo.yaml
+kubectl get pod init-demo
+kubectl exec init-demo -c web-server -- cat /usr/share/nginx/html/index.html
+kubectl debug init-demo --image=busybox:1.36 --target=web-server -- sh -c 'wget -qO- http://127.0.0.1'
+```
