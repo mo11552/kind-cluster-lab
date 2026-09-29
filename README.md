@@ -151,3 +151,29 @@ kubectl get pod init-demo
 kubectl exec init-demo -c web-server -- cat /usr/share/nginx/html/index.html
 kubectl debug init-demo --image=busybox:1.36 --target=web-server -- sh -c 'wget -qO- http://127.0.0.1'
 ```
+
+
+## Kubernetes Resource Management Lab
+
+### Concepts practiced
+
+- Viewed a Kubernetes node and its internal IP address
+- Set CPU and memory requests and limits
+- Compared Guaranteed, Burstable, and BestEffort Pods
+- Checked the QoS class assigned by Kubernetes
+- Added a label to a running Pod
+- Selected a Pod using its label
+
+### Lab file
+
+- `resource-management/qos-pods.yaml`
+
+### Commands
+
+```bash
+kubectl apply -f resource-management/qos-pods.yaml
+kubectl get pods -l qos-demo
+kubectl get pods -l qos-demo -o custom-columns=NAME:.metadata.name,QOS-CLASS:.status.qosClass
+kubectl label pod burstable-pod environment=training
+kubectl get pods -l environment=training
+```
