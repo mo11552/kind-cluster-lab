@@ -300,3 +300,26 @@ The Pod printed its message, configuration, Pod name, and namespace successfully
 - `assignments/10-04-storage-config/projected-volume.yaml`
 - `assignments/10-04-storage-config/configmap-secret.yaml`
 - `assignments/10-04-storage-config/commands-env.yaml`
+
+## Kubernetes Networking Assignment — 10/21
+
+### Concepts Practiced
+
+- Created a three-node Kind cluster for networking exercises
+- Inspected Pod IP addresses and node placement
+- Used Kubernetes DNS and a ClusterIP Service for Pod-to-Pod communication
+- Installed and tested the NGINX Ingress Controller
+- Routed `/frontend` traffic through an NGINX Ingress
+- Installed and tested the Contour Ingress Controller
+- Routed host-based traffic for `contour.local`
+- Deployed the Bank of Anthos microservices application to GKE Autopilot
+- Verified all nine Bank of Anthos Pods were Running
+- Accessed the frontend through a public LoadBalancer IP
+- Deleted all temporary Kind and GKE resources after testing
+
+### Local Networking Files
+
+- `assignments/10-21-networking/kind-networking-config.yaml`
+- `assignments/10-21-networking/networking-demo.yaml`
+- `assignments/10-21-networking/nginx-ingress.yaml`
+- `assignments/10-21-networking/contour-ingress.yaml`
