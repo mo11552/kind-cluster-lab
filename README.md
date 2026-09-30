@@ -323,3 +323,23 @@ The Pod printed its message, configuration, Pod name, and namespace successfully
 - `assignments/10-21-networking/networking-demo.yaml`
 - `assignments/10-21-networking/nginx-ingress.yaml`
 - `assignments/10-21-networking/contour-ingress.yaml`
+
+## Helm Assignment — 12/02
+
+### Concepts Practiced
+
+- Installed and verified Helm
+- Created and customized a Wordsmith Helm chart
+- Validated the chart using `helm lint`
+- Installed, upgraded, and rolled back the Wordsmith release
+- Packaged the chart as `wordsmith-0.1.0.tgz`
+- Pushed the chart to a local OCI registry
+- Installed `kube-prometheus-stack` version 91.8.1
+- Upgraded it to version 91.8.2
+- Rolled it back to version 91.8.1
+- Removed all temporary resources
+
+### Helm Files
+
+- `assignments/12-02-helm/wordsmith/`
+- `assignments/12-02-helm/packages/wordsmith-0.1.0.tgz`
