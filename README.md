@@ -233,3 +233,70 @@ A Job runs a task until it completes successfully. The `hello-job` BusyBox conta
 - `assignments/09-23-controllers/deployment.yaml`
 - `assignments/09-23-controllers/daemonset.yaml`
 - `assignments/09-23-controllers/job.yaml`
+
+---
+
+## Kubernetes Storage and Configuration Assignment — 10/04
+
+### emptyDir volume
+
+An `emptyDir` volume is created when a Pod starts and deleted when the Pod is removed. All containers in that Pod can mount and share it.
+
+The `shared-storage-pod` used:
+
+- A writer container that stored timestamps
+- A reader container that read the same file
+- One shared `emptyDir` volume
+
+### PersistentVolume and PersistentVolumeClaim
+
+A PersistentVolume provides cluster storage. A PersistentVolumeClaim requests storage for a Pod.
+
+The lab created:
+
+- A 1 GiB PersistentVolume
+- A 1 GiB PersistentVolumeClaim
+- A Pod that mounted the claim
+- A persistent test file containing `Persistent storage is working`
+
+Both the PV and PVC reached the `Bound` state.
+
+### Projected volume
+
+A projected volume combines multiple configuration sources into one mounted directory. The lab projected:
+
+- ConfigMap data
+- Secret data
+- Pod name, namespace, and labels from the Downward API
+
+### ConfigMaps and Secrets
+
+ConfigMaps store non-sensitive configuration, such as application modes and colors.
+
+Secrets store sensitive values such as credentials. Kubernetes Secrets provide controlled delivery to Pods, but they should still be protected with access controls and encryption. Real passwords and API keys must never be committed to Git.
+
+The lab created ConfigMaps and Secrets using both `kubectl` and YAML manifests.
+
+### Commands and arguments
+
+The container’s `command` replaced the image’s default entrypoint. The `args` field supplied the script executed by that command.
+
+### Environment variables
+
+The lab demonstrated:
+
+- Direct environment-variable values
+- ConfigMap-based variables
+- Secret-based variables
+- Dependent variables using `$(VARIABLE_NAME)`
+- Pod information supplied by the Downward API
+
+The Pod printed its message, configuration, Pod name, and namespace successfully.
+
+### Assignment files
+
+- `assignments/10-04-storage-config/emptydir-volume.yaml`
+- `assignments/10-04-storage-config/persistent-volume.yaml`
+- `assignments/10-04-storage-config/projected-volume.yaml`
+- `assignments/10-04-storage-config/configmap-secret.yaml`
+- `assignments/10-04-storage-config/commands-env.yaml`

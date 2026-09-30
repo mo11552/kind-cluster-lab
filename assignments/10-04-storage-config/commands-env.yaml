@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: commands-env-pod
+  namespace: storage-lab
+  labels:
+    app: commands-env-demo
+spec:
+  containers:
+    - name: busybox
+      image: busybox:1.36
+
+      command:
+        - sh
+        - -c
+
+      args:
+        - |
+          echo "$MESSAGE"
+          echo "Mode: $APP_MODE"
+          echo "Color: $APP_COLOR"
+          echo "Pod: $POD_NAME"
+          echo "Namespace: $POD_NAMESPACE"
+          sleep 3600
+
+      env:
+        - name: GREETING
+          value: "Hello"
+
+        - name: USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: cli-secret
+              key: API_USERNAME
+
+        - name: MESSAGE
+          value: "$(GREETING), $(USER_NAME)! Environment variables are working."
+
+        - name: APP_MODE
+          valueFrom:
+            configMapKeyRef:
+              name: cli-config
+              key: APP_MODE
+
+        - name: APP_COLOR
+          valueFrom:
+            configMapKeyRef:
+              name: cli-config
+              key: APP_COLOR
+
+        - name: API_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cli-secret
+              key: API_PASSWORD
+
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace

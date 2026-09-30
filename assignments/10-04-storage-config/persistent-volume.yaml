@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: storage-lab-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /data/storage-lab
+    type: DirectoryOrCreate
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: storage-lab-pvc
+  namespace: storage-lab
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: persistent-storage-pod
+  namespace: storage-lab
+spec:
+  containers:
+    - name: writer
+      image: busybox:1.36
+      command:
+        - sh
+        - -c
+        - echo "Persistent storage is working" > /data/message.txt; sleep 3600
+      volumeMounts:
+        - name: persistent-data
+          mountPath: /data
+  volumes:
+    - name: persistent-data
+      persistentVolumeClaim:
+        claimName: storage-lab-pvc
