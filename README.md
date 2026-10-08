@@ -343,3 +343,28 @@ The Pod printed its message, configuration, Pod name, and namespace successfully
 
 - `assignments/12-02-helm/wordsmith/`
 - `assignments/12-02-helm/packages/wordsmith-0.1.0.tgz`
+
+## Kubernetes Recap Lab
+
+This lab reviews core Kubernetes administration using a local Kind cluster.
+
+### Skills Practiced
+
+- Created and used a dedicated namespace
+- Managed a Deployment and ReplicaSet
+- Tested Pod self-healing
+- Scaled a Deployment from three to five replicas
+- Exposed Pods through a ClusterIP Service
+- Tested internal service discovery
+- Created a ConfigMap and Secret
+- Injected configuration using environment variables
+- Configured CPU and memory requests and limits
+- Verified the Burstable QoS class
+- Performed a rolling image update
+- Rolled the Deployment back to its previous image
+- Converted imperative resources into declarative YAML
+
+### Apply the Lab
+
+```bash
+kubectl apply -f kubernetes-recap/recap.yaml

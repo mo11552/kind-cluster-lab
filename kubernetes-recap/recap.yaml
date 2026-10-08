@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: recap
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: recap-config
+  namespace: recap
+data:
+  APP_ENV: training
+  APP_COLOR: blue
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: recap-secret
+  namespace: recap
+type: Opaque
+stringData:
+  APP_PASSWORD: recap123
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recap-nginx
+  namespace: recap
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: recap-nginx
+  template:
+    metadata:
+      labels:
+        app: recap-nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: recap-config
+            - secretRef:
+                name: recap-secret
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recap-nginx-service
+  namespace: recap
+spec:
+  selector:
+    app: recap-nginx
+  ports:
+    - port: 80
+      targetPort: 80
